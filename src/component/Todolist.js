@@ -41,6 +41,18 @@ const TodoEditBtn = styled.button`
   margin-right: auto;
 `;
 
+const NotListCont = styled.main`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  >p{
+    color: #cfcfcf;
+    margin-top: 50px;
+    font-size: 1.2rem;
+  }
+`
+
 
 function TodoList() {
   const [inputValue, setInputValue] = useState('')
@@ -48,15 +60,29 @@ function TodoList() {
   const [editModal, setEditModal] = useState(false);
   const [day, setDay] = useState('0000년 0월 0일 요일');
 
-  const deleteBtn = (e) => {
-    console.log(e.target.parentElement)
-  }
+
+
 
   const editForm = (e) => {
     e.preventDefault();
-    console.log('dfd', inputValue)
-    setTodoList([...todoList, inputValue])
+    setTodoList([inputValue, ...todoList])
     setInputValue('')
+  }
+
+  const deleteTodo = (e) => {
+    let todoListId = e.target.parentElement.id;
+    console.log(todoListId)
+    // const delList = todoList.filter((item) => {
+    //   item.id === todoListId
+    // })
+    // console.log(delList)
+    if (todoList) {
+      const newTodoList = todoList.filter((item) => (
+        item.id !== todoListId
+      ));
+      setTodoList(newTodoList); // setTodoList 함수를 사용하여 상태를 업데이트합니다.
+      console.log('newTodoList', newTodoList)
+    }
   }
 
   const showModal = () => {
@@ -73,7 +99,6 @@ function TodoList() {
     setDay(`${Year}년 ${Month}월 ${Day}일 ${week}`)
   }
 
-
   //1초 이후 실행되기 때문에 getClock을 미리 실행 시킨다.
   setInterval(getDay, 1000);
 
@@ -84,25 +109,25 @@ function TodoList() {
         <h2>To Do List</h2>
         <DataInfo>
           <div>{day}</div>
-          <span>03</span>
+          <span>{todoList.length}</span>
         </DataInfo>
       </TopHeader>
-      {/* {
-        todoList.map((el, idx) => {
-          <div></div>
-        })
-      } */}
+      {
+        !todoList.length
+          ? <NotListCont><p>리스트가 존재하지 않습니다 :(</p></NotListCont>
+          : <Ul>
+            <Todoitem todoList={todoList} deleteTodo={deleteTodo} />
+          </Ul>
+      }
 
-      <Ul>
-        <Todoitem todoList={todoList} deleteBtn={deleteBtn} />
-      </Ul>
-      {!editModal
-        ?
-        <TodoEditBtn onClick={showModal}>
-          <span className="material-symbols-outlined">edit</span>
-        </TodoEditBtn>
-        :
-        <TodoEdit editForm={editForm} showModal={showModal} TodoEditBtn={TodoEditBtn} setInputValue={setInputValue} inputValue={inputValue} />
+      {
+        !editModal
+          ?
+          <TodoEditBtn onClick={showModal}>
+            <span className="material-symbols-outlined">edit</span>
+          </TodoEditBtn>
+          :
+          <TodoEdit editForm={editForm} showModal={showModal} TodoEditBtn={TodoEditBtn} setInputValue={setInputValue} inputValue={inputValue} />
       }
 
     </>

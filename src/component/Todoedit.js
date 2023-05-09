@@ -54,7 +54,7 @@ function TodoEdit({ editForm, todoList, showModal, inputValue, setInputValue }) 
           onChange={(e) => setInputValue(e.target.value)}
           ></input>
           <TodoEditBtn onClick={showModal} type='button'>
-            <span className="material-symbols-outlined" onClick={(event) => event.stopPropagation()}>close</span>
+            <span className="material-symbols-outlined">close</span>
           </TodoEditBtn>
       </Form>
     </section>

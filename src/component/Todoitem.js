@@ -14,16 +14,16 @@ const TodoItem = styled.li`
   }
 `
 
-function Todoitem({ todoList, deleteBtn }) {
-  console.log('todoList', todoList, todoList[0])
+function Todoitem({ todoList, deleteTodo }) {
+
   return (
     <>
       {todoList.map((item, idx) => (
-        <TodoItem key={idx}>
+        <TodoItem key={idx} id={idx}>
           <label htmlFor="todoItem"></label>
           <input type="checkbox" id="todoItem"></input>
           <p>{item}</p>
-          <button onClick={deleteBtn}>
+          <button onClick={deleteTodo}>
             <span className="material-symbols-outlined">delete</span>
           </button>
         </TodoItem>
