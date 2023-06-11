@@ -8,7 +8,7 @@ import { GrClose } from "react-icons/gr"
 import IcChekOff from "../img/ic-check-off.svg"
 import IcChekOn from "../img/ic-check-on.svg"
 
-import { toggleModal, setDay, setInputValue, setTodoItem, deleteTodo } from "../Reducers/index"
+import { toggleModal, setDay, setInputValue, addTodoItem, deleteTodoItem } from "../Reducers/index"
 
 
 function Main() {
@@ -37,14 +37,14 @@ function Main() {
   const handlePaintTodo = (event) => {
     event.preventDefault()
     const newTodo = { id: todoItem.length, text: inputValue };
-    dispatch(setTodoItem(newTodo));
+    dispatch(addTodoItem(newTodo));
     dispatch(setInputValue(""));
     dispatch(toggleModal())
   }
 
   const handleDeleteTodo = (event) => {
     const targetId = Number(event.currentTarget.id);
-    dispatch(deleteTodo(targetId))
+    dispatch(deleteTodoItem(targetId))
   }
 
   const getDay = () => {
@@ -59,7 +59,7 @@ function Main() {
   useEffect(() => {
     const storedTodo = localStorage.getItem(TODO_LIST);
     if (storedTodo) {
-      dispatch(setTodoItem(JSON.parse(storedTodo)));
+      dispatch(addTodoItem(JSON.parse(storedTodo)));
     }
   }, []);
 

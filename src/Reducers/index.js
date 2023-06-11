@@ -18,11 +18,11 @@ export const todoSlice = createSlice({
       state.inputValue = action.payload
     },
 
-    setTodoItem: (state, action) => {
-      state.todoItem = [...state.todoItem, ...action.payload]
+    addTodoItem: (state, action) => {
+      state.todoItem = state.todoItem.concat(action.payload)
     },
 
-    deleteTodo: (state, action) => {
+    deleteTodoItem: (state, action) => {
       state.todoItem = state.todoItem.filter((el) => el.id !== action.payload)
     }
   }
@@ -32,8 +32,8 @@ export const todoSlice = createSlice({
 export const {
   toggleModal,
   setInputValue,
-  setTodoItem,
-  deleteTodo,
+  addTodoItem,
+  deleteTodoItem,
   setDay,
 } = todoSlice.actions;
 
