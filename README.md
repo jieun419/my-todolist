@@ -27,4 +27,3 @@ https://www.figma.com/file/JS6gQgToZBasRn3cjenJQR/To-Do-List-App-v.1?type=design
 
 https://github.com/jieun419/my-todolist/assets/109754988/038cf18b-f526-46e1-981e-cd8c18c55724
 
----
