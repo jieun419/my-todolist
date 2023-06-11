@@ -1,5 +1,6 @@
 import styled from "styled-components"
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
+import { useDispatch, useSelector } from "react-redux"
 
 import { HiOutlineTrash } from "react-icons/hi"
 import { LuPencil } from "react-icons/lu"
@@ -7,11 +8,16 @@ import { GrClose } from "react-icons/gr"
 import IcChekOff from "../img/ic-check-off.svg"
 import IcChekOn from "../img/ic-check-on.svg"
 
+import { toggleModal, setDay, setInputValue, setTodoItem, deleteTodo } from "../Reducers/index"
+
+
 function Main() {
-  const [isModal, setIsModal] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [todoItem, setTodoItem] = useState([]);
-  const [day, setDay] = useState('')
+
+  const dispatch = useDispatch()
+  const isModal = useSelector(state => state.todo.isModal)
+  const day = useSelector(state => state.todo.day)
+  const inputValue = useSelector(state => state.todo.inputValue)
+  const todoItem = useSelector(state => state.todo.todoItem)
 
   const inputRef = useRef(null)
 
@@ -20,25 +26,25 @@ function Main() {
   const TODO_LIST = "TODO_LIST"
 
   const inputHandler = (event) => {
-    setInputValue(event.target.value)
+    dispatch(setInputValue(event.target.value))
+
   }
 
   const modalHandler = () => {
-    setIsModal(!isModal)
+    dispatch(toggleModal())
   }
 
   const handlePaintTodo = (event) => {
     event.preventDefault()
-    const newTodo = [...todoItem, { id: todoItem.length, text: inputValue }];
-    setTodoItem(newTodo);
-    setInputValue("");
-    setIsModal(!isModal)
+    const newTodo = { id: todoItem.length, text: inputValue };
+    dispatch(setTodoItem(newTodo));
+    dispatch(setInputValue(""));
+    dispatch(toggleModal())
   }
 
   const handleDeleteTodo = (event) => {
     const targetId = Number(event.currentTarget.id);
-    const filterTodo = todoItem.filter((el) => el.id !== targetId)
-    setTodoItem(filterTodo)
+    dispatch(deleteTodo(targetId))
   }
 
   const getDay = () => {
@@ -47,20 +53,19 @@ function Main() {
     const Month = date.getMonth() + 1;
     const Day = date.getDate();
     const Week = weekDay[date.getDay()]
-    setDay(`${Year}년 ${Month}월 ${Day}일 ${Week}`)
+    dispatch(setDay(`${Year}년 ${Month}월 ${Day}일 ${Week}`))
   }
-  setInterval(getDay, 1000);
 
   useEffect(() => {
     const storedTodo = localStorage.getItem(TODO_LIST);
-    if(storedTodo){
-      setTodoItem(JSON.parse(storedTodo))
+    if (storedTodo) {
+      dispatch(setTodoItem(JSON.parse(storedTodo)));
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem(TODO_LIST, JSON.stringify(todoItem))
-  }, [todoItem]) 
+    localStorage.setItem(TODO_LIST, JSON.stringify(todoItem));
+  }, [todoItem]);
 
   useEffect(() => {
     getDay()
