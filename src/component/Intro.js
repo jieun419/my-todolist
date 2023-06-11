@@ -1,24 +1,5 @@
-import { styled, createGlobalStyle } from 'styled-components';
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { styled } from 'styled-components';
 import introImg from '../img/intro.svg'
-import Todolist from '../component/Todolist'
-
-const GlobalStyle = createGlobalStyle`
-  h1{
-    font-size: 3rem;
-    margin-bottom: 0;
-  }
-  p{
-    font-size: 1rem;
-    font-weight: 400;
-  }
-  button{
-    cursor: pointer;
-  }
-  img{
-    width: 100%;
-  }
-`;
 
 const Main = styled.article`
   width: 100%;
@@ -35,15 +16,6 @@ const Main = styled.article`
   background-color: #fff;
 `;
 
-const Btn = styled.button`
-  font-size: 1.2rem;
-  background-color: var(--point-color);
-  color: #fff;
-  width: 100%;
-  font-weight: 600;
-  padding: 15px 0;
-  border-radius: var(--border-radius);
-`;
 
 const Section = styled.section`
   >p{
@@ -54,21 +26,16 @@ const Section = styled.section`
 
 function Intro() {
   return (
-    <BrowserRouter>
-      <GlobalStyle />
-      <Main>
-        <section>
-          <h1>To Do List</h1>
-          <p>나의 투두 리스트를 만들고<br />관리해 보세요</p>
-        </section>
-        <Section>
-          <img src={introImg} alt="intro-img" />
-          <p>특별한 하루 보낼 준비 되셨나요?</p>
-          <Btn ><Link to="/Todolist"></Link>시작하기</Btn>
-        </Section>
-      </Main>
-    </BrowserRouter>
-
+    <Main>
+      <section>
+        <h1>To Do List</h1>
+        <p>나의 투두 리스트를 만들고<br />관리해 보세요</p>
+      </section>
+      <Section>
+        <img src={introImg} alt="intro-img" />
+        <p>특별한 하루 보낼 준비 되셨나요?</p>
+      </Section>
+    </Main>
   )
 }
 
