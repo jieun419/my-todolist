@@ -4,7 +4,6 @@
 ![](https://velog.velcdn.com/images/crg1050/post/54483aff-1552-4b67-bdd7-161ea5ab844c/image.PNG)
 
 
-
 ### 피그마로 기획 단계 작업하기
 ![](https://velog.velcdn.com/images/crg1050/post/23aa3f95-56ae-4ef9-b468-87884115708c/image.png)
 
